@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Api\Model\User\UseCase\SignUp\Request;
 
+use Api\Model\EventDispatcher;
 use Api\Model\Flusher;
 use Api\Model\User\Entity\User\Email;
 use Api\Model\User\Entity\User\User;
@@ -50,6 +51,6 @@ class Handler
 
         $this->users->add($user);
 
-        $this->flusher->flush();
+        $this->flusher->flush($user);
     }
 }

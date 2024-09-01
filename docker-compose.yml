@@ -29,6 +29,8 @@ services:
             - ./api:/var/www/api
         ports:
             - "8081:80"
+        depends_on:
+            - api-php-fpm
 
     api-php-fpm:
         build:
@@ -38,6 +40,7 @@ services:
             - ./api:/var/www/api
         depends_on:
             - api-postgres
+            - mailer
 
     api-php-cli:
         build:
@@ -47,6 +50,7 @@ services:
             - ./api:/var/www/api
         depends_on:
             - api-postgres
+            - mailer
         working_dir: /var/www/api
         tty: true
 
@@ -60,3 +64,11 @@ services:
             - "POSTGRES_DB=api"
         ports:
             - "54321:5432"
+
+    mailer:
+        # image: mailhog/mailhog
+        image: sashas777/mailhog:arm64v8
+        restart: unless-stopped
+        ports:
+            - "1025:1025"
+            - "8082:8025"

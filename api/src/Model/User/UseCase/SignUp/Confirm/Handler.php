@@ -25,6 +25,6 @@ class Handler
 
         $user->confirmSignup($command->token, new \DateTimeImmutable());
 
-        $this->flusher->flush();
+        $this->flusher->flush($user);
     }
 }
