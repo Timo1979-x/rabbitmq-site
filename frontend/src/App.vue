@@ -28,7 +28,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~bootstrap/dist/css/bootstrap.css";
+@import "assets/scss/variables";
+@import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-vue/dist/bootstrap-vue.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
