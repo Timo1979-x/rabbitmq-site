@@ -1,0 +1,6 @@
+FROM node:20.9.0-bookworm
+
+RUN /usr/local/bin/npm install -g @vue/cli
+
+WORKDIR /var/www/frontend
+CMD /usr/local/bin/npm install && /usr/local/bin/npm run watch
