@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       form: {
-        email: null,
+        email: this.$store.state.currentEmail,
         password: null,
       }
     }
