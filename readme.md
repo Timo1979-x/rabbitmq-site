@@ -1,4 +1,5 @@
-time: 5:06:00
+file:Сайт_с_RabbitMQ_15.10.2018_19-05-16
+time: 0:49:27
 
 ## Работа с PHP backend'ом
 Сначала запустить контейнеры:
@@ -36,3 +37,9 @@ docker-compose exec api-php-cli composer test
 ```
 docker-compose exec api-php-cli composer app
 ```
+
+### посмотреть содержимое БД
+```
+docker-compose exec api-postgres psql api api -c 'select * from user_users;'
+```
+
