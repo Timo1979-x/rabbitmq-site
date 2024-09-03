@@ -1,5 +1,5 @@
 file:Сайт_с_RabbitMQ_15.10.2018_19-05-16
-time: 0:49:27
+time: 1:16:27
 
 ## Работа с PHP backend'ом
 Сначала запустить контейнеры:
@@ -13,7 +13,7 @@ docker-compose up --build -d
 rm api/composer.lock
 
 # Этих зависимостей сейчас не хватает:
-docker-compose exec api-php-cli composer require 'psr/http-server-handler' 'psr/http-server-middleware'
+docker-compose exec api-php-cli composer require 'psr/http-server-handler' 'psr/http-server-middleware' 'lcobucci/jwt:3.3.3'
 
 docker-compose exec api-php-cli composer install
 ```
@@ -43,3 +43,8 @@ docker-compose exec api-php-cli composer app
 docker-compose exec api-postgres psql api api -c 'select * from user_users;'
 ```
 
+### Воссоздать private.key/public.key для работы oauth2
+```
+openssl genrsa -out api/private.key 2048
+openssl rsa -in api/private.key -pubout > api/public.key
+```
