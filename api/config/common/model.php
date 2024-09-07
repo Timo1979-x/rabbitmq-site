@@ -75,9 +75,34 @@ return [
         );
     },
 
+    ReadModel\Video\VideoReadRepository::class => function (ContainerInterface $container) {
+        return new Infrastructure\ReadModel\Video\DoctrineVideoReadRepository(
+            $container->get(\Doctrine\ORM\EntityManagerInterface::class)
+        );
+    },
+
     VideoModel\Entity\Author\AuthorRepository::class => function (ContainerInterface $container) {
         return new VideoInfrastructure\Entity\DoctrineAuthorRepository(
             $container->get(\Doctrine\ORM\EntityManagerInterface::class)
+        );
+    },
+
+    VideoModel\Entity\Video\VideoRepository::class => function (ContainerInterface $container) {
+        return new VideoInfrastructure\Entity\DoctrineVideoRepository(
+            $container->get(\Doctrine\ORM\EntityManagerInterface::class)
+        );
+    },
+
+    VideoModel\UseCase\Video\Create\Handler::class => function (ContainerInterface $container) {
+        return new VideoModel\UseCase\Video\Create\Handler(
+            $container->get(VideoModel\Entity\Video\VideoRepository::class),
+            $container->get(VideoModel\Entity\Author\AuthorRepository::class),
+            $container->get(VideoModel\Service\Uploader::class),
+            $container->get(VideoModel\Service\Processor\FormatDetector::class),
+            $container->get(VideoModel\Service\Processor\Converter\Converter::class),
+            $container->get(VideoModel\Service\Processor\Thumbnailer\Thumbnailer::class),
+            $container->get(Api\Model\Flusher::class),
+            $container->get(VideoModel\UseCase\Video\Create\Preferences::class)
         );
     },
 
