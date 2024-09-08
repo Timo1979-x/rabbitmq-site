@@ -1,5 +1,8 @@
-file:Сайт_с_RabbitMQ_15.10.2018_19-05-16
-time: 4:26:00
+## Что это
+Повторение курса Дмитрия Елисеева по созданию сайта на docker+nginx+php+doctrine+postresql+kafka+rabbitmq+mailhog
+
+file:Сайт_с_RabbitMQ_17.10.2018_19-25-33
+time: 1:44:00
 
 ## Работа с PHP backend'ом
 Сначала запустить контейнеры:
