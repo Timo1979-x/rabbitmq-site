@@ -20,7 +20,7 @@
       <div v-if="videos.length">
         <div class="my-3">
           <div class="row">
-            <div class="col-md-4" v-for="video in videos">
+            <div class="col-md-4" v-for="video in videos" :key="video.id">
               <div class="card mb-3">
                 <router-link :to="{ name: 'author.video', params: { id: video.id } }">
                   <img class="card-img-top" :src="video.thumbnail.url" alt="">

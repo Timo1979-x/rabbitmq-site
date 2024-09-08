@@ -20,7 +20,7 @@ docker-compose exec api-php-cli composer install
 
 ### миграция БД
 ```
-docker-compose exec api-php-cli composer app migrations:migrate
+docker-compose exec api-php-cli composer app migrations:migrate  --no-interaction
 ```
 
 ### заполнение тестовыми данными
@@ -41,6 +41,8 @@ docker-compose exec api-php-cli composer app
 ### посмотреть содержимое БД
 ```
 docker-compose exec api-postgres psql api api -c 'select * from user_users;'
+
+for i in `docker-compose exec api-postgres psql api api -c "SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';" -t | head -n -1`; do echo "$i" ; docker-compose exec api-postgres psql api api -c "SELECT * FROM $i;"; done
 ```
 
 ### Воссоздать private.key/public.key для работы oauth2
