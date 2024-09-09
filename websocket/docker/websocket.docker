@@ -1,0 +1,5 @@
+FROM node:10.11-jessie
+
+WORKDIR /var/www/websocket
+RUN cd /var/www/websocket && npm install
+CMD cd /var/www/websocket && npm run start

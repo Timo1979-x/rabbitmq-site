@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env # frontend-install frontend-build
+init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env websocket-start # frontend-install frontend-build
 
 down:
 	docker-compose down --remove-orphans
@@ -14,6 +14,7 @@ docker-up:
 permissions:
 	sudo chmod 777 api/var
 	sudo chmod 777 api/var/cache
+	sudo chmod 777 api/var/cache/doctrine
 	sudo chmod 777 api/var/log
 	sudo chmod 777 api/var/mail
 	sudo chmod 777 storage/public/video
@@ -55,3 +56,6 @@ pause:
 
 show-db:
 	for i in `docker-compose exec api-postgres psql api api -c "SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';" -t | head -n -1`; do echo "$i" ; docker-compose exec api-postgres psql api api -c "SELECT * FROM $i;"; done
+
+websocket-start:
+	docker-compose exec websocket-nodejs npm run start
