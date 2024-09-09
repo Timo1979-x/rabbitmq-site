@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-clear docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env # frontend-install frontend-build
+init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env # frontend-install frontend-build
 
 down:
 	docker-compose down --remove-orphans
@@ -23,6 +23,7 @@ api-env:
 	ln -s .env.example api/.env
 
 api-composer:
+	rm -f api/composer.lock
 	docker-compose exec api-php-cli composer require 'psr/http-server-handler' 'psr/http-server-middleware' 'lcobucci/jwt:3.3.3'
 	docker-compose exec api-php-cli composer install
 
@@ -45,6 +46,12 @@ frontend-env:
 
 # frontend-build:
 # 	docker-compose exec frontend-nodejs npm run build
+
+update-nginx-in-docker:
+	sed -i 's/^FROM nginx:.*/FROM nginx:1.27/g' api/docker/nginx.docker
+
+pause:
+	sleep 5
 
 show-db:
 	for i in `docker-compose exec api-postgres psql api api -c "SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';" -t | head -n -1`; do echo "$i" ; docker-compose exec api-postgres psql api api -c "SELECT * FROM $i;"; done

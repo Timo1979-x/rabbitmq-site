@@ -41,6 +41,17 @@ docker-compose exec api-php-cli composer test
 docker-compose exec api-php-cli composer app
 ```
 
+### Послать сообщение в kafka
+```
+docker-compose exec api-php-cli composer app kafka:demo:produce
+    или
+docker-compose exec api-php-cli php bin/app.php kafka:demo:produce
+
+docker-compose exec api-php-cli composer app kafka:demo:consume
+    или
+docker-compose exec api-php-cli php bin/app.php kafka:demo:consume
+```
+
 ### посмотреть содержимое БД
 ```
 docker-compose exec api-postgres psql api api -c 'select * from user_users;'
