@@ -41,20 +41,20 @@ axios.interceptors.response.use(null, error => {
 const socket = new WebSocket(process.env.VUE_APP_WS_URL);
 
 socket.onopen = function() {
-  console.log('Connected!');
   if (user) {
-    let authInfo = {
+    socket.send(JSON.stringify({
       type: 'auth',
       token: user.access_token
-    };
-    console.log('sending auth info:');
-    console.log(authInfo)
-    socket.send(JSON.stringify(authInfo));
+    }));
   }
 };
 
 socket.onmessage = function(event) {
-  console.log('Received: ' + event.data);
+  let data = JSON.parse(event.data);
+  console.log(data);
+  if (data.type === 'notification') {
+    alert(data.message);
+  }
 };
 
 Vue.use(BootstrapVue);
