@@ -1,5 +1,9 @@
-FROM node:10.11-jessie
+#FROM node:10.11-jessie
+FROM node:22-bookworm
 
 WORKDIR /var/www/websocket
-RUN cd /var/www/websocket && npm install
-CMD cd /var/www/websocket && npm run start
+RUN apt-get update
+RUN apt-get install telnet mc less -y
+# ADD ./ ./
+# RUN npm install
+# CMD node index.js

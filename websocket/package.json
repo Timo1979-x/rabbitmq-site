@@ -10,6 +10,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js"
+    "start": "npm install && node index.js"
   }
 }
