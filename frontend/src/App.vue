@@ -6,6 +6,7 @@
 
     <div class="app-content">
       <main class="container">
+        <Notifications />
         <router-view />
       </main>
     </div>
@@ -21,9 +22,13 @@
 
 <script>
 import Nav from '@/components/Nav.vue'
+import Notifications from '@/components/Notifications.vue'
 
 export default {
-  components: { Nav }
+  components: {
+    Nav,
+    Notifications
+  }
 }
 </script>
 
