@@ -9,7 +9,7 @@ Vue.config.productionTip = false;
 
 axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
-let user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 if (user) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.access_token;
 }
@@ -38,10 +38,19 @@ axios.interceptors.response.use(null, error => {
     });
 });
 
-let socket = new WebSocket(process.env.VUE_APP_WS_URL);
+const socket = new WebSocket(process.env.VUE_APP_WS_URL);
 
 socket.onopen = function() {
   console.log('Connected!');
+  if (user) {
+    let authInfo = {
+      type: 'auth',
+      token: user.access_token
+    };
+    console.log('sending auth info:');
+    console.log(authInfo)
+    socket.send(JSON.stringify(authInfo));
+  }
 };
 
 socket.onmessage = function(event) {

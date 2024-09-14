@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env websocket-start # frontend-install frontend-build
+init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env websocket-env websocket-key websocket-install websocket-start # frontend-install frontend-build
 
 down:
 	docker-compose down --remove-orphans
@@ -56,6 +56,17 @@ pause:
 
 show-db:
 	for i in `docker-compose exec api-postgres psql api api -c "SELECT tablename FROM pg_catalog.pg_tables where schemaname='public';" -t | head -n -1`; do echo "$i" ; docker-compose exec api-postgres psql api api -c "SELECT * FROM $i;"; done
+
+websocket-env:
+	rm -f websocket/.env
+	ln -s .env.example websocket/.env
+
+websocket-key:
+	rm -f ./websocket/public.key
+	cp ./api/public.key ./websocket/public.key
+
+websocket-install:
+	docker-compose exec websocket-nodejs npm install
 
 websocket-start:
 	docker-compose exec websocket-nodejs npm run start
