@@ -1,4 +1,5 @@
 up: docker-up
+	docker stats
 
 init: docker-clear update-nginx-in-docker docker-up permissions api-env api-composer api-genrsa api-migration api-fixtures frontend-env websocket-env websocket-key websocket-install websocket-start # frontend-install frontend-build
 
@@ -69,4 +70,5 @@ websocket-install:
 	docker-compose exec websocket-nodejs npm install
 
 websocket-start:
+	clear
 	docker-compose exec websocket-nodejs npm run start
