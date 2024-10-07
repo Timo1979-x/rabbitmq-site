@@ -2,7 +2,7 @@
 Повторение курса Дмитрия Елисеева по созданию сайта на docker+nginx+php+doctrine+postresql+kafka+rabbitmq+mailhog
 
 file:Сайт_с_RabbitMQ_17.10.2018_19-25-33
-time: 2:37
+time: 2:46
 
 ## Работа с PHP backend'ом
 Сначала запустить контейнеры:
@@ -43,9 +43,9 @@ docker-compose exec api-php-cli composer app
 
 ### Послать сообщение в kafka
 ```
-docker-compose exec api-php-cli composer app kafka:demo:produce 9d5200fe-c78a-46d8-bc52-dacd38fd3f33
+docker-compose exec api-php-cli composer app kafka:demo:produce 0d0b45ea-bb9b-4e40-95e5-b2c99a307385
     или
-docker-compose exec api-php-cli php bin/app.php kafka:demo:produce 9d5200fe-c78a-46d8-bc52-dacd38fd3f33
+docker-compose exec api-php-cli php bin/app.php kafka:demo:produce 0d0b45ea-bb9b-4e40-95e5-b2c99a307385
 # (последний параметр - user_id, можно посмотреть в базе данных в таблице user_users или в выводе контейнера websocket-nodejs 
 # после логина и обновления страницы веб-приложения)
 
